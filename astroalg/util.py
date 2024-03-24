@@ -8,9 +8,14 @@ import mpmath.libmp
 from mpmath import radians
 
 
-def degrees_to_radians(deg):
+def degrees_to_radians(d):
     'Convert deg to radians, first by adjusting deg ∈ [0..360)'
-    return radians(deg % 360)
+    return radians(d % 360)
+
+
+def dms_to_degrees(d, m, s):
+    'Convert degrees, minutes, seconds to decimal degrees'
+    return (s / 3600) + (m / 60) + d
 
 
 def mpmath_using_gmp() -> bool:
