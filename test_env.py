@@ -3,11 +3,11 @@
 '''Test numerical accuracy, etc.'''
 
 import math
-import mpmath.libmp
 import numpy as np
 import sympy as sp
 from sympy import sin, N
 from mpmath import pi, radians
+from astroalg.util import degrees_to_radians
 
 # normal Python float, typically 64 bits
 BIGANGLE_DEGREES_FLOAT = 36000030.
@@ -23,6 +23,8 @@ BIGANGLE_RADIANS_SYM = radians(36000030)
 BIGANGLE_MOD_RADIANS_SYM = radians(36000030 % 360)
 # x ∈ [0..2π)
 BIGANGLE_RADIANS_SYM_MOD = radians(36000030) % (2 * pi)
+# astroalgs.util radian conversion
+BIGANGLE_RADIANS_AA = degrees_to_radians(36000030)
 
 
 print('BIGANGLE_DEGREES_\n')
@@ -35,6 +37,7 @@ print('\nBIGANGLE_RADIANS_\n')
 print(f'sym/mp:\t{N(BIGANGLE_RADIANS_SYM)}')
 print(f'sym/mp (x%360):\t{N(BIGANGLE_MOD_RADIANS_SYM)}')
 print(f'(sym/mp)%(2π):\t{N(BIGANGLE_RADIANS_SYM_MOD)}')
+print(f'astroalgs:\t{N(BIGANGLE_RADIANS_AA)}')
 
 
 math_sin: float = math.sin(BIGANGLE_DEGREES_FLOAT)
@@ -44,9 +47,10 @@ numpy_sin_npld: np.longdouble = np.sin(BIGANGLE_DEGREES_NPLD)
 sympy_sin_Float = sin(BIGANGLE_DEGREES_SPFLOAT)
 sympy_sin_mp = sin(BIGANGLE_RADIANS_SYM)
 sympy_sin_mp_mod = sin(BIGANGLE_MOD_RADIANS_SYM)
+sympy_sin_aa = sin(BIGANGLE_RADIANS_AA)
 
 
-print(f'\nsin({BIGANGLE_DEGREES_FLOAT:.0f})\n')
+print(f'\n\nsin({BIGANGLE_DEGREES_FLOAT:.0f})\n')
 print(f'math.sin:\t\t{math_sin}')
 print(f'numpy.sin (float):\t{numpy_sin_float}')
 print(f'numpy.sin (float64):\t{numpy_sin_float64}')
@@ -54,6 +58,4 @@ print(f'nympy.sin (longdouble):\t{repr(numpy_sin_npld)}')
 print(f'sympy.sin (Float):\t{sympy_sin_Float}')
 print(f'sympy.sin (mp):\t\t{N(sympy_sin_mp)}')
 print(f'sympy.sin (mp):\t\t{N(sympy_sin_mp_mod)}')
-
-
-print(f'\n\nmpmath backend ("gmpy" preferred over "python"): {mpmath.libmp.BACKEND}')
+print(f'sympy.sin (aa):\t\t{N(sympy_sin_aa)}')
