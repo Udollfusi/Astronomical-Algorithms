@@ -5,15 +5,15 @@ Utility functions
 '''
 
 import mpmath.libmp
-from mpmath import radians
+from mpmath import mpf, radians
 
 
-def degrees_to_radians(d):
+def degrees_to_radians(d: mpf) -> mpf:
     'Convert deg to radians, first by coercing deg ∈ [0..360)'
     return radians(d % 360)
 
 
-def dms_to_degrees(d, m, s):
+def dms_to_degrees(d: mpf, m: mpf, s: mpf) -> mpf:
     'Convert degrees, minutes, seconds to decimal degrees'
     return (s / 3600) + (m / 60) + d
 
