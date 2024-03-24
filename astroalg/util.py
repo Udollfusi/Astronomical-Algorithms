@@ -9,7 +9,7 @@ from mpmath import radians
 
 
 def degrees_to_radians(d):
-    'Convert deg to radians, first by adjusting deg ∈ [0..360)'
+    'Convert deg to radians, first by coercing deg ∈ [0..360)'
     return radians(d % 360)
 
 
