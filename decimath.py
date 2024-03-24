@@ -37,12 +37,17 @@ def pi() -> Decimal:
     return +s  # round back to the default precision
 
 
+def deg_to_rad(x: Decimal) -> Decimal:
+    'Convert degrees to radians'
+    return ((x % Decimal(360)) / Decimal(180)) * pi()
+
+
 def cos(x: Decimal) -> Decimal:
     'Return the cosine of x as measured in radians'
     prec: int = getcontext().prec
     with localcontext() as ctx:
         ctx.prec = prec + 2  # increase precision for intermediate steps
-        
+
         # x ∈ [0..2π) --- improve Taylor series accuracy
         twopi: Decimal = _TWO * pi()
         if x >= twopi or x < _ZERO:
